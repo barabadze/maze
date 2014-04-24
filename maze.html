@@ -1,0 +1,353 @@
+
+<html>
+<head>
+<style type="text/css">
+body{
+	}
+
+.h7 {
+background-color: #000000 ;
+}
+
+	#winner{
+		color: red; 
+		font-weight: bold;
+	}
+
+	.div1{
+
+	}
+
+	.coord {
+		background-color:#b0c4de;
+		width: 20%;
+		float:right;
+		color: red;
+		font-weight: bold;
+	}
+
+	#out{
+		font-weight:900; 
+	}
+</style>
+<title></title>
+<script type="text/javascript">
+	var arr_lenght;
+	var coord_arr = [];
+	var i=0;
+	var counter=0;
+</script>
+</head>
+<body>
+<pre id="out"></pre>
+
+<DIV class="div1" ID="DIV1" style="position:absolute;top:23;left:20;height:25;width:25; "><img src="man.gif" width="18" height="18"></DIV>
+<div class="coord" id="coord"></div>
+<div id='winner'></div>
+<div id='array'></div>
+
+
+</body>
+</html>
+
+<script type="text/javascript">
+		var arai1 = new Array();
+		var arai2 = new Array();
+		var step_lenght=32;
+
+/*function next_step (move) {
+					var get=document.getElementById('DIV1');
+					if (move=37) (get.offsetLeft*1)-step_lenght;
+					if (move=39) (get.offsetLeft*1)+step_lenght;
+					if (move=38) (get.offsetTop*1)-step_lenght;
+					if (move=40) (get.offsetTop*1)+step_lenght;
+				}
+*/
+function not_in_arai_left (x,y) {
+						var ssd=0;
+						var chk=x+" "+y;
+						//chk=toString(chk);
+						var wat=arai1.indexOf(chk);
+						if(wat == -1){
+							ssd="tru";
+						}else {
+							ssd="fals";
+						}
+						if (ssd=="tru") {return false;}
+						else return true;
+								
+				}
+function not_in_arai_right (x,y) {
+						var ssd=0;
+						var xi=(x*1)+32;
+						var chk=xi+" "+y;
+						//chk=toString(chk);
+						var wat=arai1.indexOf(chk);
+						if(wat == -1){
+							ssd="tru";
+						}else {
+							ssd="fals";
+						}
+						if (ssd=="tru") {return false;}
+						else return true;
+								
+}
+function not_in_arai_up (x,y) {
+						var ssd=0;
+						var xi=(x*1);
+						var chk=x+" "+y;
+						//chk=toString(chk);
+						var wat=arai2.indexOf(chk);
+						if(wat == -1){
+							ssd="tru";
+						}else {
+							ssd="fals";
+						}
+						if (ssd=="tru") {return false;}
+						else return true;
+								
+}
+
+function not_in_arai_down (x,y) {
+						var ssd=0;
+						var xi=(x*1);
+						var yi=(y*1)+32;
+						var chk=xi+" "+yi;
+						//chk=toString(chk);
+						var wat=arai2.indexOf(chk);
+						if(wat == -1){
+							ssd="tru";
+						}else {
+							ssd="fals";
+						}
+						if (ssd=="tru") {return false;}
+						else return true;
+								
+}
+
+
+
+
+
+function outofcords ()  
+		{			
+				var maxcordx=20+step_lenght*(mazex-1);
+				var maxcordy=23+step_lenght*(mazey-1);
+
+					var ss;
+					var ek = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;
+					
+					var x=document.getElementById('DIV1').style.left;			
+					var y=document.getElementById('DIV1').style.top;			
+					var xx=x.replace('px','');
+					var yy=y.replace('px','');
+
+						if (xx==maxcordx && yy==maxcordy && ek==39) {
+							document.getElementById('DIV1').style.left=(x.replace('px','')*1)+step_lenght;
+							document.getElementById('DIV1').innerHTML="<img src='man.gif' width='75' height='75'>";
+							document.getElementById('winner').innerHTML="&#4323;&#4304;&#4314;&#4304;&#4304;&#4304;&#4304;&#4304;&#4304;&#4304;&#4304;&#4304;&#4304;&#4304;";
+							alert('You Winn');
+							window.location.href=window.location.href;
+						}
+						if (ek==37 && (xx*1)-step_lenght<0){
+							ss="tr";
+						}
+						if (ek==39 && (xx*1)+step_lenght>maxcordx  && yy!=maxcordy+1){
+							ss="tr";
+						}
+						if (ek==38 && (yy*1)-step_lenght<0){
+							ss="tr";
+						}
+						if (ek==40 && (yy*1)+step_lenght>maxcordy+1){
+							ss="tr";
+						}
+						if (ss=="tr") {return true;}
+		}
+
+var ie = (document.all && !window.opera)?1:0;
+if(!ie)
+{
+	var e=document.captureEvents(Event.KEYDOWN)
+}
+window.onload=function()
+{
+	if(!ie)
+	{
+		document.onkeydown=function(e)
+		{
+			move(e);
+		}
+	}
+	else
+	{
+		document.onkeydown=function()
+		{
+			move();
+		}
+	}	
+}
+function move(e)
+{
+
+		 var x=document.getElementById('DIV1').style.left;
+		var y=document.getElementById('DIV1').style.top;
+		var xx=x.replace('px','');
+		var yy=y.replace('px','');
+
+		if(ie)
+		{
+			ek = window.event.keyCode;
+		}
+		else
+		{
+			var event=e;
+			var ek = event.keyCode ? event.keyCode : event.which ? event.which : event.charCode;	
+		}
+				    
+			if (outofcords()) 										{}
+				else{		
+					     if (ek==37 && not_in_arai_left(xx,yy))  	{} 
+				    else if (ek==39 && not_in_arai_right(xx,yy)) 	{}
+				    else if (ek==38 && not_in_arai_up(xx,yy)) 	    {}
+				   	else if (ek==40 && not_in_arai_down(xx,yy)) 	{}
+
+						
+
+						else{
+							if (ek==37) document.getElementById('DIV1').style.left=(x.replace('px','')*1)-step_lenght;
+							if (ek==39) document.getElementById('DIV1').style.left=(x.replace('px','')*1)+step_lenght;
+							if (ek==38) document.getElementById('DIV1').style.top=(y.replace('px','')*1)-step_lenght;
+							if (ek==40) document.getElementById('DIV1').style.top=(y.replace('px','')*1)+step_lenght;
+							
+
+									var x=document.getElementById('DIV1').style.left.replace('px','');
+									var y=document.getElementById('DIV1').style.top.replace('px','');
+									var coord="";
+									coord="x="+x+"<br/>y="+y;
+							    	document.getElementById('coord').innerHTML=coord; }
+					}	
+
+	}	
+/* MOVE CODE ENDS HERE */
+
+
+
+/* MAZE CODE STARTS HERE */
+function maze(x,y) {
+	var n=x*y-1;
+	if (n<0) {alert("illegal maze dimensions");return;}
+	var horiz =[]; for (var j= 0; j<x+1; j++) horiz[j]= [],
+	    verti =[]; for (var j= 0; j<y+1; j++) verti[j]= [],
+	    here = [Math.floor(Math.random()*x), Math.floor(Math.random()*y)],
+	    path = [here],
+	    unvisited = [];
+	for (var j = 0; j<x+2; j++) {
+		unvisited[j] = [];
+		for (var k= 0; k<y+1; k++)
+			unvisited[j].push(j>0 && j<x+1 && k>0 && (j != here[0]+1 || k != here[1]+1));
+	}
+	while (0<n) {
+		var potential = [[here[0]+1, here[1]], [here[0],here[1]+1],
+		    [here[0]-1, here[1]], [here[0],here[1]-1]];
+		var neighbors = [];
+		for (var j = 0; j < 4; j++)
+			if (unvisited[potential[j][0]+1][potential[j][1]+1])
+				neighbors.push(potential[j]);
+		if (neighbors.length) {
+			n = n-1;
+			next= neighbors[Math.floor(Math.random()*neighbors.length)];
+			unvisited[next[0]+1][next[1]+1]= false;
+			if (next[0] == here[0])
+				horiz[next[0]][(next[1]+here[1]-1)/2]= true;
+			else 
+				verti[(next[0]+here[0]-1)/2][next[1]]= true;
+			path.push(here = next);
+		} else 
+			here = path.pop();
+	}
+	return {x: x, y: y, horiz: horiz, verti: verti};
+}
+ 
+function display(m) {
+	var text = new Array();
+	var array =  new Array();
+	var array2 =  new Array();
+	var na=1*1;
+	var na2=(1*1)-3;
+						for (var j= 0; j<m.x*2+1; j++) {
+										var line= [];
+										if (0 == j%2){
+											for (var k=0; k<m.y*4+1; k++)
+												if (0 == k%4) {
+													line[k]= '<h7 style="background-color: #000000">o</h7>';
+												}
+												else
+													if (j>0 && m.verti[j/2-1][Math.floor(k/4)]){
+														line[k]= ' ';
+													}
+													else{
+														naa2=na2++;
+														line[k]= '<h7 style="background-color: #000000"id="Q'+naa2 +'">—</h7>';
+														array2.push(naa2);
+														}
+										}
+										else{
+											for (var k=0; k<m.y*4+1; k++)
+												if (0 == k%4)
+													if (k>0 && m.horiz[(j-1)/2][k/4-1]){
+														line[k]= ' ';
+													}
+													else{
+														naa=na++;
+														line[k]= '<h7 style="background-color: #000000" id="P'+naa +'" class="font">|</h7>';
+														array.push(naa);
+													}
+													else
+													line[k]= ' ';
+										}
+										if (0 == j) line[1]= line[2]= line[3]= ' ';
+										if (m.x*2-1 == j) line[4*m.y]= ' ';
+										text.push(line.join('')+'\r\n');
+									}
+											//arai=array;
+									arr_lenght = array.length;
+									arr_lenght2 = array2.length-3;
+									return text.join('');
+}
+/* MAZE CODE ENDS HERE */
+var mazex=15;
+var mazey=15;
+document.getElementById('out').innerHTML= display(maze(mazex,mazey)); 
+		var ii=0;
+		var xcord1=0;
+		var ycord1=0;
+		var coords1=0;
+		var di=0;
+		var ii2=0;
+		var xcord2=0;
+		var ycord2=0;
+		var coords2=0;
+		var di2=0;
+			for (var i = 1; i < arr_lenght; i++) {
+								ii='P'+i;
+								di=document.getElementById(ii);
+								xcord1=di.offsetLeft+12;
+								ycord1=di.offsetTop-1;
+								coords1=xcord1+" "+ycord1;
+								arai1.push(coords1);
+								//document.write(coords1+"<br/>");
+					}			
+
+			for (var i = 1; i < arr_lenght2; i++) {
+								ii2='Q'+i;
+								di2=document.getElementById(ii2);
+								xcord2=di2.offsetLeft+4;
+								ycord2=di2.offsetTop+15;
+								coords2=xcord2+" "+ycord2;
+								arai2.push(coords2);
+					}			
+						//	document.write(arai2);	
+//	alert(coord_arr); 
+//	var sdef = coord_arr;
+//	document.getElementById('winner').innerHTML=sdef;
+</script>
